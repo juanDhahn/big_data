@@ -1,0 +1,25 @@
+> Activar Time.
+# \timing
+
+> Comando SED para corregir tablas.
+$ time sed -e "s/ | /|/g" -e "s/|100|/|99|/g" miles > miles2
+$ time sed -e "s/ | /|/g" -e "s/|100|/|99|/g" millones > millones2
+
+> Eliminar duplicados en millones.
+$ time sort -u -t'|' -k1,1 millones2 > millones3
+    -u - print only the unique lines.
+    -t - specify the delimiter. Here in this example, I just use the | as delimiter.
+    -k3,3 - sort on 3rd field.
+
+(3.1) Insertar 'miles2' en personas1.
+# COPY personas1 FROM '/home/informatica/Desktop/miles2' (FORMAT CSV, DELIMITER('|'));
+
+(3.2) Insertar 'millones2' en personas1.
+# COPY personas1 FROM '/home/informatica/Desktop/millones2' (FORMAT CSV, DELIMITER('|'));
+
+(4.2) Crear indice en personas1 para 'millones2'.
+# CREATE INDEX index_personas1 ON personas1 (rut);
+
+(5.2) Insertar 'millones3' en personas2.
+# COPY personas2 FROM '/home/informatica/Desktop/millones3' (FORMAT CSV, DELIMITER('|'));
+
