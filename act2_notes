@@ -1,0 +1,13 @@
+Preparar tabla:
+# CREATE TABLE tresmil(rut numeric(10));
+# COPY tresmil FROM '/home/informatica/Desktop/tresmil' (FORMAT CSV);
+
+Seleccionar rut:
+
+PERSONAS1: # \COPY (SELECT personas1.direccion FROM personas1 INNER JOIN tresmil ON (personas1.rut = tresmil.rut)) TO '/home/informatica/Desktop/dir1';
+PERSONAS1: # \COPY (SELECT personas1.direccion FROM tresmil INNER JOIN personas1 ON (tresmil.rut = personas1.rut )) TO '/home/informatica/Desktop/dir1';
+
+PERSONAS2: # \COPY (SELECT personas2.direccion FROM personas2 INNER JOIN tresmil ON (personas2.rut = tresmil.rut)) TO '/home/informatica/Desktop/dir2';
+
+Nota: \COPY necesita permisos de escritura en la carpeta de destino.
+
