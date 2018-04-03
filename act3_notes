@@ -1,0 +1,9 @@
+Preparar tabla:
+# CREATE TABLE elimina(rut numeric(10));
+# COPY elimina FROM '/home/informatica/Desktop/elimina' (FORMAT CSV);
+
+Eliminar valores:
+# BEGIN; 
+# DELETE FROM personas1 WHERE personas1.rut IN (SELECT rut FROM elimina);
+# DELETE FROM personas2 WHERE personas2.rut IN (SELECT rut FROM elimina);
+# ROLLBACK;	
