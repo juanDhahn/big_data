@@ -1,0 +1,11 @@
+Preparar tabla:
+# CREATE TABLE actualiza(rut numeric(10));
+# COPY actualiza FROM '/home/nazorth/Desktop/actualiza' (FORMAT CSV);
+
+Nota importante:
+# BEGIN;
+# ROLLBACK; 
+
+Using CASE:
+# UPDATE personas1 SET edad = CASE WHEN edad > 84 THEN 99 ELSE edad + 15 END FROM actualiza WHERE actualiza.rut = personas1.rut;
+# UPDATE personas2 SET edad = CASE WHEN edad > 84 THEN 99 ELSE edad + 15 END FROM actualiza WHERE actualiza.rut = personas2.rut;
