@@ -1,36 +1,33 @@
 #include <iostream>
-#include "libpq-fe.h"
+#include <postgresql/libpq-fe.h>
 using namespace std;
-
-/* Close connection to database */
-void CloseConn(PGconn *conn)
-{
-  PQfinish(conn);
-  getchar();
-}
-
-/* Establish connection to database */
-PGconn *ConnectDB()
-{
-  PGconn *conn = NULL;
-
-  // Make a connection to the database
-  conn = PQconnectdb("user=postgres password=postgres dbname=postgres hostaddr=127.0.0.1 port=5432");
-
-  // Check to see that the backend connection was successfully made
-  if (PQstatus(conn) != CONNECTION_OK)
-  {
-    cout << "Connection to database failed.\n";
-    CloseConn(conn);
-  }
-
-  cout << "Connection to database - OK\n";
-
-  return conn;
-}
 
 int main() 
 {
-    cout << "Hello, World!"<<endl;
-    return 0;
+  // Initiate connection
+  PGconn *dbconn = PQconnectdb("user=postgres dbname=postgres");
+
+  // Test connection
+  if (PQstatus(dbconn) == CONNECTION_BAD) {
+    cout << "Unable to connect to database\n";
+    cout << PQerrorMessage(dbconn);
+  }
+  else{
+    cout << "Connection to database OK\n";
+  }
+
+
+  // Result holder
+  // PGresult *query;
+
+  // Execute a query
+  // query = PQexec(dbconn, "select * from mytable");
+
+  // Use the values
+  // printf ("%s\n", PQgetvalue(query, 0, 1));
+
+  // Close connection
+  PQfinish(dbconn);
+
+  return 0;
 }
