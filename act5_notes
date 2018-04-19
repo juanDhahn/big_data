@@ -1,12 +1,21 @@
 Instaling C++:
 $ sudo apt-get install build-essential
-Compile C++:
-$ g++ act5.cpp -o act5-exe -lpq
-Run C++:
-$ ./output_file
+Compile and Run C++:
+$ g++ act5.cpp -o act5.exe -lpq && ./act5.exe
 
 Nota: Usar cursor para la consulta. Max-Tam-Pista / Tam-Registro.
 
 Seleccionar personas:
 # SELECT edad, count(edad) FROM personas1 GROUP BY edad;
+
+
+
+PostgreSQL Cursor:
+
+DECLARE
+	cur_edades CURSOR FOR SELECT edad FROM personas1;
+OPEN
+	cur_edades;
+FETCH 
+	cur_edades INTO row_edad; 
 
