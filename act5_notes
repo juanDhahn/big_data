@@ -5,10 +5,11 @@ $ g++ act5.cpp -o act5.exe -lpq && ./act5.exe
 
 Nota: Usar cursor para la consulta. Max-Tam-Pista / Tam-Registro.
 
+Obtener Datos PC:
+$ sudo hdparm -I /dev/sda
+
 Seleccionar personas:
 # SELECT edad, count(edad) FROM personas1 GROUP BY edad;
-
-
 
 PostgreSQL Cursor:
 
@@ -18,4 +19,3 @@ OPEN
 	cur_edades;
 FETCH 
 	cur_edades INTO row_edad; 
-
