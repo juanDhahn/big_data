@@ -1,12 +1,17 @@
 /* Compile: g++ act5.cpp -o act5.exe -lpq && ./act5.exe */
 #include <iostream>
-#include <string.h>
-#include <map>
+#include <stdlib.h>
+#include <time.h>
 #include <postgresql/libpq-fe.h>
 using namespace std;
 
 int main() 
 {
+  clock_t time_init;
+  clock_t time_end;
+
+  time_init = clock();
+
   // Initiate connection
   PGconn *dbconn = PQconnectdb("user=postgres dbname=postgres");
 
@@ -25,52 +30,33 @@ int main()
   PQclear(query);
   query = PQexec(dbconn, "DECLARE cur_edad CURSOR FOR SELECT edad FROM personas1");
 
-  // Declare map for results
-  map<string,int> map_edades;
+  // Initialize array with 0
+  int edades [100] = {};
 
-  for (int i = 0; i < 10000; i++) {
+  for (int i = 0; i < 175000; i++) {
     PQclear(query);
-    query = PQexec(dbconn, "FETCH FORWARD 3500 in cur_edad");
+    query = PQexec(dbconn, "FETCH FORWARD 200 in cur_edad");
     
     for (int j = 0; j < int(PQntuples(query)); j++) {
 
-      string key = PQgetvalue(query, j, 0);
+      int key = atoi(PQgetvalue(query, j, 0));
+      edades[key] += 1;     
       
-      // Check if key exist in map
-      if(map_edades.find(key) != map_edades.end()) {
-        map_edades[key] = map_edades[key] + 1;
-      }
-      // if not create new key
-      else {
-        map_edades.insert(make_pair(key,1));
-      }
-
     }
-
-
-    /*
-    // Check if query is OK
-    if (strlen(PQresultErrorMessage(query)) == 0) {
-      
-      // Print result
-      for (int j = 0; j < int(PQntuples(query)); j++) {
-        cout << PQgetvalue(query, j, 0) << endl;
-      }
-
-      cout << "Fetched rows: " << PQntuples(query) << endl;
-
-    }
-    else {  
-      cout << PQresultErrorMessage(query);
-    }
-    */
   }
   
-  for (map<string,int>::iterator it = map_edades.begin(); it != map_edades.end(); ++it){
-    cout << it -> first << " -> " << it -> second << endl;
-  }
+  time_end = clock();
+
+  // Print results
+  int sum = 0;
+  for (int i = 1; i < 100; i++){
+    // cout << i << " -> " << edades[i] << endl;
+    sum = sum + edades[i];
+  }  
+
+  cout << "Total: " << sum << endl;
+  cout << "Tiempo: " << (double) (time_end - time_init) / CLOCKS_PER_SEC << " seg" << endl;
     
-  
   // Close cursor and clear query
   PQclear(query);
   query = PQexec(dbconn, "CLOSE cur_edad");
