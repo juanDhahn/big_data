@@ -1,0 +1,18 @@
+# Tablespace
+Crear un tablespace para dummies:
+### 1 -  Revisar dueño de la carpeta bdd_data.
+``` 
+ls -l
+``` 
+### 2 - Cambiar dueño a usuario postgres.
+``` 
+sudo chown postgres:postgres bdd_data
+``` 
+### 3 - Cambiar contraseña de usuario postgres si fuese necesario.
+``` 
+sudo passwd postgres
+``` 
+### 4 - Crear tablespace usando usuario postgres (Permisos de admin)
+``` 
+CREATE TABLESPACE bdd_data OWNER normie LOCATION '/directorio/bbd_data/ts.01';
+``` 
