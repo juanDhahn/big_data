@@ -6,5 +6,6 @@
 3 - Cambiar contraseña de usuario postgres si fuese necesario.
 	$ sudo passwd postgres
 4 - Crear tablespace usando usuario postgres (Permisos de admin)
-	# CREATE TABLESPACE bdd_data OWNER normie LOCATION '/directorio/bbd_data/ts.01';
+	# CREATE TABLESPACE bdd_index OWNER normie LOCATION '/directorio/bbd_index/ts.01';
+	# CREATE TABLESPACE bdd_data OWNER normie LOCATION '/directorio/bbd_data/ts.02';
 
